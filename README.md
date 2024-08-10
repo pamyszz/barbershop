@@ -1,7 +1,7 @@
 # Inicio do projeto
 
-- [x] Setup do banco 
-- [x] Seeding do banco 
+- [x] Setup do banco
+- [x] Seeding do banco
 - [ ] Next.js
 - [ ] Tailwind e Shadcn
 - [ ] Git Hooks
