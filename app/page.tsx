@@ -6,8 +6,13 @@ import { Card, CardContent } from "./_components/ui/card";
 import { Badge } from "./_components/ui/badge";
 import { SearchIcon } from "lucide-react";
 import { Avatar, AvatarImage } from "./_components/ui/avatar";
+import { db } from "./_lib/prisma";
+import BarbershopItem from "./_components/barbershop-item";
 
-const Home = () => {
+const Home = async () => {
+  const barbershops = await db.barbershop.findMany({});
+  console.log({ barbershops });
+
   return (
     <div>
       {/* HEADER */}
@@ -15,7 +20,7 @@ const Home = () => {
       <div className="p-5">
         {/* TEXTO */}
         <h2 className="text-xl font-bold">Olá, Miguel!</h2>
-        <p>Segunda-feira, 05 de agosto. </p>
+        <p>Segunda-feira, 05 de agosto.</p>
 
         {/* BUSCA */}
         <div className="gap-2 flex items-center mt-6">
@@ -31,12 +36,15 @@ const Home = () => {
             alt="Agende nos melhores com FSW Barber"
             src="/banner-01.png"
             fill
-            className=" rounded-xl object-cover"
+            className="rounded-xl object-cover"
           />
         </div>
 
         {/* AGENDAMENTO */}
-        <Card className="mt-6">
+        <h2 className="mt-6 mb-3 uppercase text-gray-400 font-bold">
+          Agendamento
+        </h2>
+        <Card>
           <CardContent className="flex justify-between p-0">
             {/* ESQUERDA */}
             <div className="flex flex-col gap-2 py-5 pl-5">
@@ -51,13 +59,22 @@ const Home = () => {
               </div>
             </div>
             {/* DIREITA */}
-            <div className="flex flex-col items-center justify-center  border-l-2 border-solid px-5">
+            <div className="flex flex-col items-center justify-center border-l-2 border-solid px-5">
               <p className="text-sm">Agosto</p>
               <p className="text-2xl">05</p>
               <p className="text-sm">20:00</p>
             </div>
           </CardContent>
         </Card>
+
+        <h2 className="mt-6 mb-3 uppercase text-gray-400 font-bold">
+          Recomendados
+        </h2>
+        <div className="flex gap-4 overflow-auto [&:: -webkit-scrollbar]:hidden">
+          {barbershops.map((barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+          ))}
+        </div>
       </div>
     </div>
   );
